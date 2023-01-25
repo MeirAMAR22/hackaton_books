@@ -1,7 +1,4 @@
-import pandas as pd
-import numpy as np
 from flask import Flask, request, jsonify
-import pickle
 
 app = Flask(__name__)
 
@@ -19,8 +16,14 @@ def my_user():
     country = request.args.get('country')
     books_type = request.args.get('books_type')
     n_reco = request.args.get('n_reco')  # the number of recommandations
+    if n_reco == None:
+        n_reco = 10
     user_rating_threshold = request.args.get('user_rating_threshold')  # drop users with not enough recommandations
+    if user_rating_threshold == None:
+        user_rating_threshold = 20
     n_similarity = request.args.get('n_similarity')  # how many users we want to compare
+    if n_similarity == None:
+        n_similarity = 10
 
     #input_data = np.array([user_id, country, books_type, n_reco, user_rating_threshold, n_similarity]).reshape(1, -1)
     # Perform the prediction using the inputs
